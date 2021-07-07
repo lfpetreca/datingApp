@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { AccountService } from '../_services/account.service';
 
@@ -8,23 +10,27 @@ import { AccountService } from '../_services/account.service';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-  model: any = {};  
+  model: any = {};
 
-  constructor(public accontService: AccountService) { }
+  constructor(
+    public accontService: AccountService,
+    private _router: Router,
+    private _toastr: ToastrService
+  ) { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
+    this._toastr.success('sucesso');
   }
 
   login() {
     this.accontService.login(this.model).subscribe(res => {
-      console.log(res);
-    }, error => {
-      console.log(error.error, error);
-    });
+      this._router.navigateByUrl('/members');
+    }, error => this._toastr.error(error.error));
   }
 
   logout() {
     this.accontService.logout();
+    this._router.navigateByUrl('/');
   }
 
 }
