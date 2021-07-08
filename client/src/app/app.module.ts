@@ -3,9 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ToastrModule } from 'ngx-toastr';
 
+import { SharedModule } from './_modules/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -33,10 +32,7 @@ import { MessagesComponent } from './messages/messages.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    BsDropdownModule.forRoot(),
-    ToastrModule.forRoot({
-      positionClass: 'toast-bottom-right'
-    }),
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
