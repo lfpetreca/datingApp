@@ -1,5 +1,8 @@
 # Dating App
 
+## .Net Core API - Server Side
+## Angular - Client Side
+
 ### Requirements
 - Users should be able to log in
 - Users should be able to register
