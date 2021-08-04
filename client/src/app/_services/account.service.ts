@@ -18,30 +18,22 @@ export class AccountService {
 
   login(model: any) {
     return this._http.post<User>(`${this.baseUrl}/account/login`, model).pipe(
-      map((res: User) => {
-        const user = res;
-        if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.currentUserSource.next(user);
-        }
+      map((user: User) => {
+        if (user) this.setCurrentUser(user);
       })
     );
   }
 
   register(model: any) {
     return this._http.post<User>(`${this.baseUrl}/account/register`, model).pipe(
-      map((res: User) => {
-        const user = res;
-        if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.currentUserSource.next(user);
-        }
-        return user;
+      map((user: User) => {
+        if (user) this.setCurrentUser(user);
       })
     );
   }
 
   setCurrentUser(user: User) {
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
 
