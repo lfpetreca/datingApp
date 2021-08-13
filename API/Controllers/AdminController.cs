@@ -16,7 +16,7 @@ namespace API.Controllers
             _userManager = userManager;
         }
 
-        [Authorize(Policy = "RequiredAdminRole")]
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpGet("users-with-roles")]
         public async Task<ActionResult> GetUsersWithRoles()
         {
@@ -35,14 +35,15 @@ namespace API.Controllers
             return Ok(users);
         }
 
-        [HttpGet("edit-roles/{username}")]
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpPost("edit-roles/{username}")]
         public async Task<ActionResult> EditRoles(string username, [FromQuery] string roles)
         {
             var selectedRoles = roles.Split(",").ToArray();
 
             var user = await _userManager.FindByNameAsync(username);
 
-            if(user == null) return NotFound("Could not found user");
+            if (user == null) return NotFound("Could not find user");
 
             var userRoles = await _userManager.GetRolesAsync(user);
 
