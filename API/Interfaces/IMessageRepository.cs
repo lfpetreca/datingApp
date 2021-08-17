@@ -9,15 +9,16 @@ namespace API.Interfaces
     public interface IMessageRepository
     {
         void AddMessage(Message message);
-
         void DeleteMessage(Message message);
+        void AddGroup(Group group);
+        void RemoveConnection(Connection connection);
 
         Task<Message> GetMessage(int id);
-
         Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams);
-
         Task<IEnumerable<MessageDto>> GetMessageThread(string currentUsername, string recipientUsername);
-
+        Task<Group> GetMessageGroup(string groupName);
+        Task<Connection> GetConnection(string connectionId);
+        Task<Group> GetGroupForConnection(string connectionId);
         Task<bool> SaveAllAsync();
     }
 }
